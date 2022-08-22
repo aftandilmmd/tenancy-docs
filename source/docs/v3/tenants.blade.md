@@ -17,12 +17,12 @@ The base model has the following features on top of the ones that are necessary 
 - Id generation trait — when you don't supply an ID, a random uuid will be generated. An alternative to this would be using AUTOINCREMENT columns. If you wish to use numerical ids, change the `create_tenants_table` migration to use `bigIncrements()` or some such column type, and set `tenancy.id_generator` config to null. That will disable the ID generation altogether, falling back to the database's autoincrement mechanism.
 
 ## Tenant Model
-**Most** applications using this package will want domain/subdomain identification and tenant databases. To do this, create a new model, e.g. `App\Tenant`, that looks like this:
+**Most** applications using this package will want domain/subdomain identification and tenant databases. To do this, create a new model, e.g. `App\Models\Tenant`, that looks like this:
 
 ```php
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Stancl\Tenancy\Database\Models\Tenant as BaseTenant;
 use Stancl\Tenancy\Contracts\TenantWithDatabase;
@@ -38,7 +38,7 @@ class Tenant extends BaseTenant implements TenantWithDatabase
 Then, configure the package to use this model in `config/tenancy.php`:
 
 ```php
-'tenant_model' => \App\Tenant::class,
+'tenant_model' => \App\Models\Tenant::class,
 ```
 
 If you want to customize the `Domain` model, you can do that too.
